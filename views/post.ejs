@@ -1,0 +1,71 @@
+<% extend('./layouts/layout') %>
+
+  <div class="node-blog">
+    <nav class="breadcrumb pl-0">
+      <a class="breadcrumb-item text-secondary" href="/">Home</a>
+      <a class="breadcrumb-item text-secondary" href="<% if (categories.hasOwnProperty(article.category)) { %>
+          <%- '/archives/' + categories[article.category].path %>
+            <% } else { %>
+              '/archives/沒有分類'
+              <% } %>">
+        <% if (categories.hasOwnProperty(article.category)) { %>
+          <%- categories[article.category].name %>
+            <% } else { %>
+              沒有分類
+              <% } %>
+      </a>
+      <span class="breadcrumb-item active">
+        <%- article.title %>
+      </span>
+    </nav>
+    <div class="row justify-content-center">
+      <div class="col-md-9">
+        <!-- artical header -->
+        <h1 class="text-secondary">
+          <%- article.title || '沒有標題' %>
+        </h1>
+        <div class="d-flex flex-row text-secondary small">
+          <div class="p-2">
+            <i class="fa fa-user-o" aria-hidden="true"></i> Mix-Liten</div>
+          <div class="p-2">
+            <%= moment(article.up_time * 1000).format('YYYY/MM/DD') %>
+          </div>
+          <div class="p-2">
+            <i class="fa fa-tag" aria-hidden="true"></i>
+            <a href="<% if (categories.hasOwnProperty(article.category)) { %>
+                <%- '/archives/' + categories[article.category].path %>
+                  <% } else { %>
+                    '/archives/沒有分類'
+                    <% } %>" class="text-info">
+              <% if (categories.hasOwnProperty(article.category)) { %>
+                <%- categories[article.category].name %>
+                  <% } else { %>
+                    沒有分類
+                    <% } %>
+            </a>
+          </div>
+        </div>
+        <article class="text-dark post mb-4">
+          <%- article.content || '沒有內容' %>
+        </article>
+        <!-- 留言 -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <div id="disqus_thread"></div>
+            <script>
+              (function () { // DON'T EDIT BELOW THIS LINE
+                var d = document,
+                  s = d.createElement('script');
+                s.src = 'https://nodeblog-2.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the
+              <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+            </noscript>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
